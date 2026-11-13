@@ -914,6 +914,8 @@ function addMsg(log, { text, who, me, when }) {
    auto-scrolling and the cursor just follows whatever section they're reading. */
 (() => {
   const DESKTOP = () => innerWidth > 900;
+  // phones in battery saver / "remove animations" mode report reduced motion — keep the guide, skip the glide
+  const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const STEPS = [
     { sel: '.intro h1', ax: 1, ay: 0.55, dx: 10, text: "Hey, I'm James 👋 Let me show you around." },
     // ---- dock walkthrough ----
@@ -957,6 +959,7 @@ function addMsg(log, { text, who, me, when }) {
     <div class="g-bubble" role="status" aria-live="polite">
       <div class="g-head"><span>~/james <b class="g-count"></b></span><button class="g-x" aria-label="Hide guide">✕</button></div>
       <p class="g-text"></p>
+      <div class="g-ctrl"><button class="g-skip">skip tour</button><button class="g-next">next ›</button></div>
     </div>`;
   document.body.appendChild(g);
   const cur = $('.g-cursor', g), ring = $('.g-ring', g), bubble = $('.g-bubble', g);
@@ -989,6 +992,7 @@ function addMsg(log, { text, who, me, when }) {
     clearInterval(typeTimer);
     const list = visibleSteps();
     countEl.textContent = String(list.indexOf(s) + 1).padStart(2, '0') + '/' + String(list.length).padStart(2, '0');
+    $('.g-next', g).textContent = list.indexOf(s) === list.length - 1 ? 'done ✓' : 'next ›';
     let i = 0;
     const chars = [...s.text];
     textEl.textContent = '';
@@ -1001,7 +1005,7 @@ function addMsg(log, { text, who, me, when }) {
 
   function smoothTo(top) {
     autoScrolling = true;
-    window.scrollTo({ top, behavior: 'smooth' });
+    window.scrollTo({ top, behavior: REDUCED ? 'auto' : 'smooth' });
     clearTimeout(smoothTo.t);
     smoothTo.t = setTimeout(() => { autoScrolling = false; }, 1200);
   }
@@ -1045,11 +1049,32 @@ function addMsg(log, { text, who, me, when }) {
     mode = 'follow'; clearTimeout(tourTimer);
     follow();
   };
-  ['wheel', 'touchmove'].forEach(ev => addEventListener(ev, takeOver, { passive: true }));
+  addEventListener('wheel', takeOver, { passive: true });
   addEventListener('keydown', e => {
     if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(e.key)) takeOver();
   });
-  addEventListener('pointerdown', e => { if (!g.contains(e.target) && !e.target.closest('#tourBtn')) takeOver(); });
+  // mouse clicks take over; on phones a simple tap doesn't — only a real swipe-scroll does
+  addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse') return;
+    if (!g.contains(e.target) && !e.target.closest('#tourBtn')) takeOver();
+  });
+  let touchY = null;
+  addEventListener('touchstart', e => { touchY = e.touches[0] ? e.touches[0].clientY : null; }, { passive: true });
+  addEventListener('touchmove', e => {
+    if (touchY == null || !e.touches[0]) return;
+    if (Math.abs(e.touches[0].clientY - touchY) > 60 && !g.contains(e.target)) { touchY = null; takeOver(); }
+  }, { passive: true });
+
+  // bubble buttons: next step (also resumes the tour after you scrolled away) / skip
+  $('.g-next', g).addEventListener('click', () => {
+    const list = visibleSteps();
+    const at = list.indexOf(step);
+    if (at === list.length - 1) { mode = 'follow'; setOff(true); return; }
+    mode = 'tour';
+    idx = at + 1;
+    nextStep();
+  });
+  $('.g-skip', g).addEventListener('click', () => setOff(true));
   addEventListener('scroll', () => { if (!off && mode === 'follow' && !autoScrolling) follow(); }, { passive: true });
 
   let lastT = 0, lastFollow = 0;
@@ -1061,7 +1086,7 @@ function addMsg(log, { text, who, me, when }) {
       if (p) {
         const tx = Math.min(innerWidth - 24, Math.max(8, p[0])) + Math.sin(t / 700) * 1.5;
         const ty = Math.min(innerHeight - 30, Math.max(8, p[1])) + Math.cos(t / 900) * 1.5;
-        const k = 1 - Math.exp(-dt / 140);   // frame-rate independent glide
+        const k = REDUCED ? 1 : 1 - Math.exp(-dt / 140);   // glide (or jump if the phone has reduced motion on)
         pos[0] += (tx - pos[0]) * k;
         pos[1] += (ty - pos[1]) * k;
         if (!arrived && Math.hypot(tx - pos[0], ty - pos[1]) < 3) {

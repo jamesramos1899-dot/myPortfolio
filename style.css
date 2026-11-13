@@ -352,7 +352,7 @@ body::before{
 .g-text.typing::after{content:"▌";font-family:var(--mono);margin-left:1px;animation:gblink .7s step-end infinite}
 @keyframes gblink{50%{opacity:0}}
 @media (max-width:560px){ .g-bubble{max-width:210px} .g-text{font-size:12px} }
-@media (prefers-reduced-motion: reduce){ .guide{display:none} }
+/* reduced motion: guide stays visible (JS jumps instead of gliding) */
 
 /* ================= ABOUT ================= */
 .about{display:grid;grid-template-columns:1.35fr 1fr;gap:32px;margin-top:24px}
@@ -629,4 +629,18 @@ body::before{
   .dk{width:34px;height:36px;font-size:13px;border-radius:10px}
   .dk-sep{margin:0 2px 8px;height:20px}
   .dk-live{min-width:0;padding:0 6px;gap:4px;font-size:11px}
+}
+
+/* guide bubble controls */
+.g-ctrl{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;padding-top:7px;
+  border-top:1px solid color-mix(in srgb,var(--ink-text) 18%,transparent)}
+.g-ctrl button{font-family:var(--mono);font-size:11px;color:inherit;padding:4px 2px}
+.g-skip{opacity:.6}
+.g-skip:hover{opacity:1}
+.g-next{background:var(--accent);color:#1a0d00!important;border-radius:6px;padding:4px 10px!important;font-weight:500}
+.g-x{min-width:24px;min-height:24px;display:grid;place-items:center;font-size:12px;margin:-4px -6px -4px 0}
+@media (max-width:560px){
+  .g-ctrl button{font-size:12px;padding:7px 4px}
+  .g-next{padding:7px 14px!important}
+  .g-x{min-width:32px;min-height:32px}
 }
