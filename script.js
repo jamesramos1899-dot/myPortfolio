@@ -916,6 +916,8 @@ function addMsg(log, { text, who, me, when }) {
   const DESKTOP = () => innerWidth > 900;
   // phones in battery saver / "remove animations" mode report reduced motion — keep the guide, skip the glide
   const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // phones/tablets can't hover — they get "tap" wording instead of "hover/click"
+  const TOUCH = matchMedia('(hover: none)').matches;
   const STEPS = [
     { sel: '.intro h1', ax: 1, ay: 0.55, dx: 10, text: "Hey, I'm James 👋 Let me show you around." },
     // ---- dock walkthrough ----
@@ -926,14 +928,14 @@ function addMsg(log, { text, who, me, when }) {
     { sel: '.dock [data-open="chat"]', ax: 0.5, ay: 0.3, quick: true, text: 'Leave me a message or say hi in the community chat 💬' },
     { sel: '#themeBtn', ax: 0.5, ay: 0.3, quick: true, text: 'Switch between system, light and dark mode 🌗' },
     { sel: '#viewers', ax: 0.5, ay: 0.3, quick: true, text: "The live dot shows how many people are on my site right now 👋" },
-    { sel: '#photo', ax: 0.72, ay: 0.62, text: "Move your mouse anywhere — my eyes follow you 👀 Click my face and I'll blink." },
+    { sel: '#photo', ax: 0.72, ay: 0.62, text: "Move your mouse anywhere — my eyes follow you 👀 Click my face and I'll blink.", touchText: "Tap anywhere on the screen — my eyes follow your finger 👀 Tap my face and I'll blink." },
     { sel: '.intro .now', ax: 1, ay: 0.5, dx: 4, text: "I'm a 4th-year BSIT student at UCLM, working toward becoming a full-stack developer." },
     { sel: '.si-bar', ax: 0.55, ay: 0.5, text: 'A quick system check on me — school, year, projects, what I am learning, and my status.' },
     { sel: '#about .block-head', ax: 0.25, ay: 0.5, scroll: '#about', text: "Here's my story — where I study, what I'm learning, and what I'm aiming for." },
     { sel: '.plist', ax: 0.7, ay: 0.3, scroll: '#projects', text: 'Four projects so far — pick one from the list and watch a mini demo of it play in the window 🖥️' },
     { sel: '#experience .block-head', ax: 0.34, ay: 0.5, scroll: '#experience', text: 'My journey — from interlinking & design work at Blueberry Digital Labs in senior high to building full-stack projects at UCLM.' },
     { sel: '#stack .block-head', ax: 0.22, ay: 0.5, scroll: '#stack', text: "Tools I use — the ones tagged 'learning' are what I'm leveling up in right now." },
-    { sel: '#certifications .block-head', ax: 0.4, ay: 0.5, scroll: '#certifications', text: 'My certificates — hover one to develop it in color, click to see it full size 🎞️' },
+    { sel: '#certifications .block-head', ax: 0.4, ay: 0.5, scroll: '#certifications', text: 'My certificates — hover one to develop it in color, click to see it full size 🎞️', touchText: 'My certificates — tap any one to open it full size, then swipe to flip through them 🎞️' },
     { sel: '.foot', ax: 0.62, ay: 0.2, scroll: 'bottom', text: 'Looking for an OJT intern? Email me or say hi in the community chat 📬' },
     { sel: '.intro h1', ax: 1, ay: 0.55, dx: 10, scroll: 'top', text: "That's the tour! Tap the guided tour button in the dock to replay it. Thanks for visiting 🙌" },
   ];
@@ -994,7 +996,7 @@ function addMsg(log, { text, who, me, when }) {
     countEl.textContent = String(list.indexOf(s) + 1).padStart(2, '0') + '/' + String(list.length).padStart(2, '0');
     $('.g-next', g).textContent = list.indexOf(s) === list.length - 1 ? 'done ✓' : 'next ›';
     let i = 0;
-    const chars = [...s.text];
+    const chars = [...((TOUCH && s.touchText) || s.text)];
     textEl.textContent = '';
     textEl.classList.add('typing');
     typeTimer = setInterval(() => {

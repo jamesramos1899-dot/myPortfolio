@@ -644,3 +644,5 @@ body::before{
   .g-next{padding:7px 14px!important}
   .g-x{min-width:32px;min-height:32px}
 }
+.cert-hint .on-touch{display:none}
+@media (hover:none){ .cert-hint .on-hover{display:none} .cert-hint .on-touch{display:inline} }
