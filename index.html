@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>James Ramos</title>
+  <meta name="description" content="James Stephen Ramos — full-stack developer in the making, BSIT student at UCLM, Cebu.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body id="top">
+
+  <!-- ================= FLOATING DOCK ================= -->
+  <nav class="dock" id="dock" aria-label="Site">
+    <!-- sections (on phones these fold into the ☰ button) -->
+    <div class="dk-group dk-sec">
+      <a class="dk" href="#about" data-label="about"><i class="far fa-user"></i></a>
+      <a class="dk" href="#projects" data-label="projects"><i class="far fa-folder"></i></a>
+      <a class="dk" href="#experience" data-label="experience"><i class="far fa-calendar"></i></a>
+      <a class="dk" href="#stack" data-label="stack"><i class="fas fa-layer-group"></i></a>
+      <a class="dk" href="#certifications" data-label="certifications"><i class="fas fa-award"></i></a>
+    </div>
+    <button class="dk dk-menu" id="dkMenu" data-label="sections" aria-expanded="false" aria-controls="dkPop"><i class="fas fa-bars"></i></button>
+
+    <span class="dk-sep" aria-hidden="true"></span>
+
+    <!-- tools -->
+    <div class="dk-group dk-tools">
+      <button class="dk" data-open="ask" data-label="ask anything"><i class="fas fa-wand-magic-sparkles"></i></button>
+      <button class="dk" data-open="typing" data-label="typing test"><i class="far fa-keyboard"></i></button>
+      <button class="dk" id="tourBtn" data-label="guided tour"><i class="fas fa-route"></i></button>
+      <button class="dk" data-open="chat" data-label="community chat"><i class="far fa-message"></i></button>
+    </div>
+
+    <span class="dk-sep" aria-hidden="true"></span>
+
+    <div class="dk-group dk-me">
+      <button class="dk" id="themeBtn" data-label="theme: system" aria-label="Change theme"><i class="fas fa-circle-half-stroke"></i></button>
+      <a class="dk" href="mailto:jamesramos101604@gmail.com" data-label="email me"><i class="far fa-envelope"></i></a>
+      <span class="dk dk-live" id="viewers" data-label="1 person viewing now">
+        <span class="live-dot"></span><b id="viewerCount">1</b><span class="sr" id="viewerLabel">person viewing now</span>
+      </span>
+    </div>
+
+    <!-- phone-only popover with the section links -->
+    <div class="dk-pop" id="dkPop" hidden>
+      <a href="#about"><i class="far fa-user"></i> about</a>
+      <a href="#projects"><i class="far fa-folder"></i> projects</a>
+      <a href="#experience"><i class="far fa-calendar"></i> experience</a>
+      <a href="#stack"><i class="fas fa-layer-group"></i> stack</a>
+      <a href="#certifications"><i class="fas fa-award"></i> certifications</a>
+    </div>
+  </nav>
+
+  <!-- ================= MAIN ================= -->
+  <main class="main">
+
+    <!-- hero -->
+    <section class="hero">
+      <figure class="feed">
+        <div class="photo" id="photo" title="👀">
+          <canvas id="face" aria-label="Photo of James Stephen Ramos" role="img"></canvas>
+          <span class="rec"><i></i> live</span>
+        </div>
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <figcaption>
+          <span>cam_01 · james.png</span>
+          <span class="track" id="eyeXY">eyes: idle</span>
+        </figcaption>
+      </figure>
+
+      <div class="intro">
+        <h1>James Ramos</h1>
+        <p class="now"><span class="dot"></span> 4th-year BSIT student · UCLM · Cebu</p>
+        <p>
+          I'm an IT student on my way to becoming a <mark>full-stack developer</mark>.
+          I learn by building — interfaces in HTML, CSS &amp; JavaScript, backends in <mark>PHP</mark>,
+          and data in <mark>MySQL</mark> — and I'm now leveling up in React and Node.js.
+        </p>
+        <p>
+          So far I've built four projects, from a QR ordering system to a hotel booking manager.
+          My next step is an <mark>OJT / internship</mark>, where I can learn how real teams
+          build and ship software.
+        </p>
+        <div class="socials">
+          <a href="https://github.com/jamesramos1899-dot" target="_blank" rel="noopener">github <span>↗</span></a>
+          <a href="https://linkedin.com/in/james-stephen-ramos" target="_blank" rel="noopener">linkedin <span>↗</span></a>
+          <a href="mailto:jamesramos101604@gmail.com">email <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- stats: "system check" readout -->
+    <section class="sysinfo" id="sysinfo" aria-label="Quick facts">
+      <div class="si-bar">
+        <span class="si-prompt"><b>james@uclm</b> ~ $ <span class="si-cmd">whoami --stats</span></span>
+        <span class="si-ok">● all systems go</span>
+      </div>
+      <div class="si-body">
+        <div class="si-logo" id="siLogo" aria-hidden="true"></div>
+        <dl class="si-list">
+          <div class="si-row"><dt>school</dt><dd>BSIT · University of Cebu Lapu-Lapu and Mandaue</dd></div>
+          <div class="si-row"><dt>year</dt><dd><span class="si-meter"><i></i><i></i><i></i><i class="now"></i></span> 4th year — final stretch</dd></div>
+          <div class="si-row"><dt>projects</dt><dd><b class="si-num" data-to="4">0</b> built &amp; shipped</dd></div>
+          <div class="si-row"><dt>toolbox</dt><dd><b class="si-num" data-to="14">0</b> tools · html · css · js · php · mysql …</dd></div>
+          <div class="si-row"><dt>learning</dt><dd>react · node.js · rest apis<span class="si-caret">▌</span></dd></div>
+          <div class="si-row"><dt>events</dt><dd><span class="si-nw">Cebu ICT Student Congress 2026 (PSITE 7)</span> · <span class="si-nw">UC CCS ICT Congress 2026</span> · <span class="si-nw">CASH 3.0 2026</span></dd></div>
+          <div class="si-row"><dt>badges</dt><dd><span class="si-nw">IBM SkillsBuild — Data Fundamentals (2025)</span></dd></div>
+          <div class="si-row"><dt>status</dt><dd class="si-status"><span class="live-dot"></span> open for OJT / internship</dd></div>
+        </dl>
+      </div>
+      <div class="si-swatches" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </section>
+
+    <div class="dots-divider" aria-hidden="true"></div>
+
+    <!-- 01 about -->
+    <section id="about" class="block">
+      <div class="block-head"><h2>01 — about</h2></div>
+      <div class="about">
+        <div class="about-text">
+          <p>
+            I'm <strong>James Stephen Ramos</strong>, a 4th-year <strong>Bachelor of Science in Information Technology</strong>
+            student at the <strong>University of Cebu Lapu-Lapu and Mandaue (UCLM)</strong>. I wrote my first
+            “Hello, World!” in first year and got hooked — I've been building things ever since.
+          </p>
+          <p>
+            Every project I've made started with a real, everyday problem, and each one taught me something new:
+            how to design a database, how backend logic connects to what users see, and how to make an interface
+            people can actually use without instructions.
+          </p>
+          <p>
+            My goal is to grow into a <strong>full-stack developer</strong> — someone who can take an idea from a rough
+            sketch to a working system. I'm comfortable with HTML, CSS, JavaScript, PHP and MySQL, and I'm currently
+            learning <strong>React, Node.js and REST APIs</strong>.
+          </p>
+        </div>
+        <dl class="facts">
+          <div><dt>Education</dt><dd>BSIT · UCLM · 4th year</dd></div>
+          <div><dt>Goal</dt><dd>Become a full-stack developer</dd></div>
+          <div><dt>Looking for</dt><dd>Software dev OJT / internship</dd></div>
+          <div><dt>Learning now</dt><dd>React · Node.js · REST APIs</dd></div>
+          <div><dt>Languages</dt><dd>English · Filipino · 日本語 (learning)</dd></div>
+          <div><dt>Interests</dt><dd>Web dev · Japanese · Problem solving</dd></div>
+          <div><dt>Based in</dt><dd>Cebu, Philippines</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 02 projects -->
+    <section id="projects" class="block">
+      <div class="block-head">
+        <h2>02 — projects</h2>
+        <a href="https://github.com/jamesramos1899-dot" target="_blank" rel="noopener">ALL PROJECTS →</a>
+      </div>
+
+      <div class="console" id="console">
+        <!-- file list -->
+        <ol class="plist" role="tablist" aria-label="Projects">
+          <li><button class="pitem" role="tab" data-p="0"><span class="pnum">01</span><span class="pname">qr-ordering<small>Mini QR Ordering System</small></span><span class="pbar"></span></button></li>
+          <li><button class="pitem" role="tab" data-p="1"><span class="pnum">02</span><span class="pname">nihongo<small>Nihongo Learning Platform</small></span><span class="pbar"></span></button></li>
+          <li><button class="pitem" role="tab" data-p="2"><span class="pnum">03</span><span class="pname">e-commerce<small>E-Commerce App</small></span><span class="pbar"></span></button></li>
+          <li><button class="pitem" role="tab" data-p="3"><span class="pnum">04</span><span class="pname">hotel-booking<small>Hotel Book Management</small></span><span class="pbar"></span></button></li>
+        </ol>
+
+        <!-- browser window -->
+        <div class="pwin" role="tabpanel">
+          <div class="pwin-bar">
+            <span class="lights"><i></i><i></i><i></i></span>
+            <span class="purl"><i class="fas fa-lock"></i> james.dev/<b id="pUrl">qr-ordering</b></span>
+          </div>
+
+          <div class="pstage" aria-hidden="true">
+            <!-- 01: phone scanning a table QR, order slip prints -->
+            <div class="scene s-qr">
+              <div class="phone">
+                <div class="qr" id="qrGrid"></div>
+                <span class="scanline"></span>
+                <small>table 07 · scan to order</small>
+              </div>
+              <div class="slip">
+                <p class="sl">order · table 07</p>
+                <p class="sl">1× chicken adobo <b>₱180</b></p>
+                <p class="sl">2× iced tea <b>₱90</b></p>
+                <p class="sl">1× leche flan <b>₱75</b></p>
+                <p class="sl ok"><i class="fas fa-check"></i> order sent</p>
+              </div>
+            </div>
+
+            <!-- 02: kana flashcards flipping + lesson progress -->
+            <div class="scene s-jp">
+              <div class="card3d" id="kanaCard">
+                <div class="face front"><span id="kanaFront">あ</span></div>
+                <div class="face back"><span id="kanaBack">a</span></div>
+              </div>
+              <div class="lesson">
+                <p>lesson 01 · hiragana</p>
+                <div class="lbar"><span id="kanaBar"></span></div>
+                <div class="quiz" id="kanaQuiz"><i></i><i></i><i></i><i></i><i></i></div>
+              </div>
+            </div>
+
+            <!-- 03: products get added to cart -->
+            <div class="scene s-shop">
+              <div class="shelf" id="shelf">
+                <div class="prod"><span class="pimg"></span><b>tee</b><em>₱450</em><span class="add">+ add</span></div>
+                <div class="prod"><span class="pimg"></span><b>cap</b><em>₱320</em><span class="add">+ add</span></div>
+                <div class="prod"><span class="pimg"></span><b>tote</b><em>₱280</em><span class="add">+ add</span></div>
+              </div>
+              <div class="cart"><i class="fas fa-bag-shopping"></i><span id="cartCount">0</span><small id="cartTotal">₱0</small></div>
+            </div>
+
+            <!-- 04: availability calendar filling with bookings -->
+            <div class="scene s-hotel">
+              <div class="cal">
+                <p class="cal-head">rooms · <span id="calMonth">november</span></p>
+                <div class="cal-grid" id="calGrid"></div>
+              </div>
+              <div class="legend">
+                <p><i class="free"></i> available</p>
+                <p><i class="booked"></i> booked</p>
+                <p class="stat"><b id="calFree">0</b> rooms free</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pinfo">
+            <div class="pinfo-top">
+              <h3 id="pTitle">Mini QR Ordering System</h3>
+              <span class="ptype" id="pType">full-stack web app</span>
+            </div>
+            <p class="plabel">the problem</p>
+            <p class="pproblem" id="pProblem"></p>
+            <p class="plabel">what I built</p>
+            <ul class="pbuilt" id="pBuilt"></ul>
+            <div class="pfoot">
+              <div class="pstack" id="pStack"></div>
+              <a class="badge" id="pLink" href="https://github.com/jamesramos1899-dot" target="_blank" rel="noopener"><i class="fab fa-github"></i><span><small>View on</small>GitHub</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 experience -->
+    <section id="experience" class="block">
+      <div class="block-head"><h2>03 — experience</h2><span class="head-cmd">$ git log --graph</span></div>
+      <ol class="gitlog">
+        <li class="commit head">
+          <span class="node"></span>
+          <div class="c-meta"><code class="hash">a3f9c1e</code><span class="ref ref-head">HEAD → main</span><span class="ref">open-to-work</span><span class="when">now</span></div>
+          <h3>Looking for: Software Development OJT</h3>
+          <p>Open to internship opportunities — eager to learn from a real dev team and contribute.</p>
+          <p class="diff"><span class="pending">~ ojt</span><span class="pending">~ real-team experience</span></p>
+        </li>
+        <li class="commit">
+          <span class="node"></span>
+          <div class="c-meta"><code class="hash">7b2d4e0</code><span class="ref">tag: 4th-yr</span></div>
+          <h3>Building real projects</h3>
+          <p>Built the Mini QR Ordering System and the Nihongo Learning Platform; started learning React &amp; Node.js.</p>
+          <p class="diff"><span>+ qr-ordering</span><span>+ nihongo</span><span>+ react</span><span>+ node.js</span></p>
+        </li>
+        <li class="commit">
+          <span class="node"></span>
+          <div class="c-meta"><code class="hash">5e8a21d</code><span class="ref">tag: 3rd-yr</span></div>
+          <h3>First full-stack systems</h3>
+          <p>Learned PHP, MySQL &amp; backend logic — built the E-Commerce App and Hotel Book Management.</p>
+          <p class="diff"><span>+ php</span><span>+ mysql</span><span>+ e-commerce</span><span>+ hotel-booking</span></p>
+        </li>
+        <li class="commit">
+          <span class="node"></span>
+          <div class="c-meta"><code class="hash">3c41f9b</code><span class="ref">tag: 2nd-yr</span></div>
+          <h3>Web development basics</h3>
+          <p>HTML, CSS &amp; JavaScript — first static sites and how the web works.</p>
+          <p class="diff"><span>+ html</span><span>+ css</span><span>+ javascript</span></p>
+        </li>
+        <li class="commit">
+          <span class="node"></span>
+          <div class="c-meta"><code class="hash">c0ffee1</code><span class="ref">tag: 1st-yr</span></div>
+          <h3>BS Information Technology — UCLM</h3>
+          <p>University of Cebu Lapu-Lapu and Mandaue. First “Hello, World!”.</p>
+          <p class="diff"><span>+ hello-world</span><span>+ programming fundamentals</span></p>
+        </li>
+        <li class="commit root">
+          <span class="node"></span>
+          <div class="c-meta"><code class="hash">b1ebe77</code><span class="ref">tag: shs</span><span class="ref">initial commit</span></div>
+          <h3>Work Immersion — Blueberry Digital Labs</h3>
+          <p>Worked on interlinking and design during my senior high school work immersion — my first hands-on experience in a real tech company.</p>
+          <p class="diff"><span>+ interlinking</span><span>+ design</span><span>+ first tech job</span></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 04 stack -->
+    <section id="stack" class="block">
+      <div class="block-head"><h2>04 — stack</h2></div>
+      <div class="stack-grid">
+        <span><i class="fab fa-html5"></i> HTML</span>
+        <span><i class="fab fa-css3-alt"></i> CSS</span>
+        <span><i class="fab fa-js"></i> JavaScript</span>
+        <span><i class="fab fa-react"></i> React<em>learning</em></span>
+        <span><i class="fab fa-php"></i> PHP</span>
+        <span><i class="fab fa-node-js"></i> Node.js<em>learning</em></span>
+        <span><i class="fas fa-database"></i> MySQL</span>
+        <span><i class="fas fa-plug"></i> REST APIs<em>learning</em></span>
+        <span><i class="fab fa-bootstrap"></i> Bootstrap</span>
+        <span><i class="fas fa-wind"></i> Tailwind</span>
+        <span><i class="fab fa-git-alt"></i> Git</span>
+        <span><i class="fab fa-github"></i> GitHub</span>
+        <span><i class="fas fa-code"></i> VS Code</span>
+        <span><i class="fab fa-figma"></i> Figma</span>
+      </div>
+    </section>
+
+    <!-- 05 certifications -->
+    <section id="certifications" class="block">
+      <div class="block-head"><h2>05 — certifications</h2><span class="head-cmd">$ open ./certs</span></div>
+      <p class="cert-hint">hover to develop · click to view full size</p>
+      <div class="cert-grid">
+        <button class="cert" data-i="0" aria-label="View certificate: CASH 3.0 International Bitcoin Cash Conference">
+          <span class="cert-img">
+            <img src="certs/web/cash3-2026-thumb.jpg" alt="" loading="lazy" width="560" height="396">
+            <span class="halftone"></span><span class="sweep"></span>
+            <span class="stamp">✓ participant</span>
+          </span>
+          <span class="cert-meta"><span class="cert-id">cert_01</span><span>aug 2026</span></span>
+          <b class="cert-title">CASH 3.0 — International Bitcoin Cash Conference</b>
+          <span class="cert-issuer">Paytaca, Inc. · Summit Hotel, Cebu City</span>
+        </button>
+
+        <button class="cert" data-i="1" aria-label="View certificate: Cebu ICT Student Congress 2026">
+          <span class="cert-img">
+            <img src="certs/web/psite7-2026-thumb.jpg" alt="" loading="lazy" width="560" height="396">
+            <span class="halftone"></span><span class="sweep"></span>
+            <span class="stamp">✓ participant</span>
+          </span>
+          <span class="cert-meta"><span class="cert-id">cert_02</span><span>apr 30, 2026</span></span>
+          <b class="cert-title">Cebu ICT Student Congress 2026</b>
+          <span class="cert-issuer">PSITE Central Visayas (PSITE 7) × University of Cebu</span>
+        </button>
+
+        <button class="cert" data-i="2" aria-label="View certificate: 12th UC CCS ICT Congress 2026">
+          <span class="cert-img">
+            <img src="certs/web/ict-congress-2026-thumb.jpg" alt="" loading="lazy" width="560" height="396">
+            <span class="halftone"></span><span class="sweep"></span>
+            <span class="stamp">✓ participant</span>
+          </span>
+          <span class="cert-meta"><span class="cert-id">cert_03</span><span>apr 22, 2026</span></span>
+          <b class="cert-title">12th UC CCS ICT Congress 2026</b>
+          <span class="cert-issuer">University of Cebu — College of Computer Studies</span>
+        </button>
+
+        <button class="cert" data-i="3" aria-label="View badge: IBM SkillsBuild Data Fundamentals">
+          <span class="cert-img">
+            <img src="certs/web/ibm-data-fundamentals-2025-thumb.jpg" alt="" loading="lazy" width="560" height="359">
+            <span class="halftone"></span><span class="sweep"></span>
+            <span class="stamp">✓ badge earned</span>
+          </span>
+          <span class="cert-meta"><span class="cert-id">cert_04</span><span>nov 26, 2025</span></span>
+          <b class="cert-title">Data Fundamentals — IBM SkillsBuild</b>
+          <span class="cert-issuer">IBM · digital credential · intermediate</span>
+        </button>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p class="foot-kicker">06 — say hi</p>
+      <h2 class="foot-title">Got an OJT slot, a project, or just want to talk code?</h2>
+      <a class="foot-mail" href="mailto:jamesramos101604@gmail.com">jamesramos101604@gmail.com <span>↗</span></a>
+      <div class="foot-links">
+        <a href="https://github.com/jamesramos1899-dot" target="_blank" rel="noopener">github ↗</a>
+        <a href="https://linkedin.com/in/james-stephen-ramos" target="_blank" rel="noopener">linkedin ↗</a>
+        <button data-open="chat">community chat ↗</button>
+      </div>
+      <p class="foot-copy">© 2026 James Stephen Ramos · Cebu, Philippines</p>
+    </footer>
+  </main>
+
+  <!-- ================= ASK ANYTHING ================= -->
+  <dialog class="modal" id="ask">
+    <div class="modal-head">
+      <span><i class="fas fa-wand-magic-sparkles"></i> Ask anything about James</span>
+      <button class="icon-btn" data-close aria-label="Close"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="chat-log" id="askLog"></div>
+    <div class="suggest" id="askSuggest">
+      <button>What's your stack?</button>
+      <button>Tell me about your projects</button>
+      <button>Are you open for OJT?</button>
+      <button>Certifications?</button>
+      <button>How can I contact you?</button>
+      <button data-reveal>What can my browser see?</button>
+    </div>
+    <form class="chat-form" id="askForm">
+      <input id="askInput" autocomplete="off" placeholder="Ask me something…" maxlength="200">
+      <button class="send" aria-label="Send"><i class="fas fa-arrow-up"></i></button>
+    </form>
+  </dialog>
+
+  <!-- ================= TYPING TEST ================= -->
+  <dialog class="modal" id="typing">
+    <div class="modal-head">
+      <span><i class="far fa-keyboard"></i> Typing test</span>
+      <button class="icon-btn" data-close aria-label="Close"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="tt-stats">
+      <div><b id="ttWpm">0</b><small>WPM</small></div>
+      <div><b id="ttAcc">100%</b><small>ACCURACY</small></div>
+      <div><b id="ttTime">0.0s</b><small>TIME</small></div>
+    </div>
+    <div class="tt-text" id="ttText" tabindex="0"></div>
+    <input class="tt-input" id="ttInput" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Type here">
+    <div class="tt-foot">
+      <span id="ttHint">Start typing to begin</span>
+      <button class="btn-sm" id="ttRestart"><i class="fas fa-rotate-right"></i> New text</button>
+    </div>
+  </dialog>
+
+  <!-- ================= CERTIFICATE VIEWER ================= -->
+  <dialog class="modal viewer" id="certView" aria-label="Certificate viewer">
+    <div class="modal-head">
+      <span><i class="far fa-image"></i> <b id="cvFile">cert_01.jpg</b> <em id="cvCount">1 / 3</em></span>
+      <button class="icon-btn" data-close aria-label="Close"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="cv-body">
+      <div class="cv-stage">
+        <img id="cvImg" alt="">
+        <button class="cv-nav prev" id="cvPrev" aria-label="Previous certificate"><i class="fas fa-arrow-left"></i></button>
+        <button class="cv-nav next" id="cvNext" aria-label="Next certificate"><i class="fas fa-arrow-right"></i></button>
+      </div>
+      <dl class="cv-info">
+        <div><dt>event</dt><dd id="cvTitle"></dd></div>
+        <div><dt>theme</dt><dd id="cvTheme"></dd></div>
+        <div><dt>issued by</dt><dd id="cvIssuer"></dd></div>
+        <div><dt>date</dt><dd id="cvDate"></dd></div>
+        <div><dt>venue</dt><dd id="cvVenue"></dd></div>
+        <div><dt>status</dt><dd class="cv-ok"><i class="fas fa-circle-check"></i> <span id="cvStatus">certificate of participation</span></dd></div>
+      </dl>
+    </div>
+  </dialog>
+
+  <!-- ================= COMMUNITY CHAT ================= -->
+  <dialog class="modal" id="chat">
+    <div class="modal-head">
+      <span><i class="far fa-message"></i> community chat</span>
+      <button class="icon-btn" data-close aria-label="Close"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="chat-log" id="chatLog"></div>
+    <form class="chat-form" id="chatForm">
+      <input id="chatName" class="name" autocomplete="off" placeholder="Name" maxlength="20">
+      <input id="chatInput" autocomplete="off" placeholder="Say hi 👋" maxlength="240">
+      <button class="send" aria-label="Send"><i class="fas fa-arrow-up"></i></button>
+    </form>
+  </dialog>
+
+  <script src="photo.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

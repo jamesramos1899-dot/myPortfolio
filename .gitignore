@@ -1,0 +1,14 @@
+# old backup of the first version (kept locally only)
+_old-version/
+
+# full-size certificate originals — the site uses the compressed copies in certs/web/
+certs/*.png
+certs/*.jpg
+
+# test pages / OS files
+_t*.html
+_m.html
+_f.html
+Thumbs.db
+desktop.ini
+.DS_Store
